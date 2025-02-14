@@ -3,10 +3,12 @@
 TARGET = flypy wubi98
 DEPENDENCY_TARGET = $(TARGET:%=%_dependency)
 LIB_TARGET = $(TARGET:%=$(BUILD_DIR)/lib%.so)
-CFLAGS = -shared -fPIC -llua -I$(BUILD_DIR) -I$(SOURCE_DIR)
+CFLAGS = -shared -fPIC -I$(BUILD_DIR) -I$(SOURCE_DIR)  -I$(shell brew --prefix lua)/include/lua5.4
 SOURCE_DIR = src
 BUILD_DIR = build
 DICT_DIR = dict
+
+LDFLAGS = -L$(shell brew --prefix lua)/lib -llua5.4 -lm
 
 all: $(TARGET)
 $(TARGET): %:%_dependency $(BUILD_DIR)/lib%.so
